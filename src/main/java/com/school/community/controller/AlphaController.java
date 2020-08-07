@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -184,6 +185,33 @@ public class AlphaController {
 
         return "set cookie";
     }
+    //浏览器再次向服务器发送请求时，在RequestHeaders中的cookie
+    @RequestMapping(path = "/cookie/get", method = RequestMethod.GET)
+    @ResponseBody
+    //@CookieValue这个注解的意思是，从cookie中获取key为code的cookie的值，存入字符串code中
+    public String getCookie(@CookieValue("code") String code){
+        System.out.println(code);
+        return "get cookie";
+    }
+
+    //session示例
+    @RequestMapping(path = "/session/set", method = RequestMethod.GET)
+    @ResponseBody
+    //Session对象无需自己创建，Spring MVC会自动创建，因此只需声明即可
+    public String setSession(HttpSession session){
+        session.setAttribute("id",1);
+        session.setAttribute("name","Test");
+        return "set session";
+    }
+
+    @RequestMapping(path = "/session/get", method = RequestMethod.GET)
+    @ResponseBody
+    public String getSession(HttpSession session) {
+        session.getAttribute("id");
+        session.getAttribute("name");
+        return "get session";
+    }
+
 
 
 }

@@ -1,3 +1,6 @@
+//加上一个全局变量，用于声明项目community的路径
+var CONTEXT_PATH = "/community"
+
 window.alert = function(message) {
 	if(!$(".alert-box").length) {
 		$("body").append(

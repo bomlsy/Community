@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.*;
     LoginTicket的Mapper
  */
 @Mapper
+@Deprecated //不推荐使用这个组件，改成使用Redis存储登录凭证
 public interface LoginTicketMapper {
 
     @Insert({

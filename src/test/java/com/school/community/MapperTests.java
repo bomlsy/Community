@@ -1,10 +1,12 @@
 package com.school.community;
 
 import com.school.community.dao.DiscussPostMapper;
+import com.school.community.dao.MessageMapper;
 import com.school.community.dao.UserMapper;
 import com.school.community.entity.DiscussPost;
+import com.school.community.entity.Message;
 import com.school.community.entity.User;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,10 @@ public class MapperTests {
     //要测试UserMapper，所以把UserMapper注入进来
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser(){
@@ -64,8 +70,6 @@ public class MapperTests {
         System.out.println(rows);
     }
 
-    @Autowired
-    private DiscussPostMapper discussPostMapper;
     @Test
     public void testSelectPosts() {
         List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149,0,10);
@@ -74,6 +78,30 @@ public class MapperTests {
         }
         int rows = discussPostMapper.selectDiscussPostsRows(149);
         System.out.println(rows);
+    }
+
+    //测试私信列表的Mapper
+    @Test
+    public void testLetters() {
+        List<Message> list = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : list) {
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        list = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message message : list) {
+            System.out.println(message);
+        }
+
+        int countLetters = messageMapper.selectLetterCount("111_112");
+        System.out.println(countLetters);
+
+        int countUnread = messageMapper.selectLetterUnreadCount(131, "111_131");
+        System.out.println(countUnread);
+
     }
 
     }

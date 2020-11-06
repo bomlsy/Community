@@ -212,6 +212,17 @@ public class AlphaController {
         return "get session";
     }
 
+    //ajax示例：处理异步请求
+    @RequestMapping(path = "/ajax", method = RequestMethod.POST)
+    @ResponseBody
+    //传入的参数：浏览器提交给服务器的信息
+    public String testAjax(String name, int age) {
+        System.out.println(name);
+        System.out.println(age);
+
+        return CommunityUtil.getJSONString(0, "ok");
+    }
+
 
 
 }
